@@ -75,4 +75,13 @@ def bwa_sample(source, outputdir, project, samplename=None, index= None):
         cmd, name = bwa_sample(source=args.source , outputdir=args.output,samplename=sample, index=args.bwaindex)
         print (name)
         print (cmd)
-
+        
+with open("name.sh", "w") as fh:
+    cmdScript = bwa()
+    fh.write('''\
+    #! /bin/bash
+    #SBATCH -d afterok:$PID
+    #SBATCH -n 
+    #SBATCH -t 72:00:00
+    ''', cmdScript)
+    fh.close()
